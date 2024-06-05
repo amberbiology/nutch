@@ -22,13 +22,13 @@
 
   <property>
     <name>http.agent.name</name>
-    <value>bcube.test.crawler</value>
+    <value>opendap.test.crawler</value>
     <description>HTTP 'User-Agent' request header.</description>
   </property>
 
   <property>
     <name>http.agent.url</name>
-    <value>http://nsidc.org</value>
+    <value>http://opendap.org</value>
     <description>A URL to advertise in the User-Agent header.  This will
      appear in parenthesis after the agent name.
     </description>
@@ -36,7 +36,7 @@
 
   <property>
     <name>http.agent.description</name>
-    <value>NSIDC BCUbe Web Service Search Engine</value>
+    <value>OPeNDAP Web Service Search Engine</value>
     <description>Further description of our bot- this text is used in
     the User-Agent header.  It appears in parenthesis after the agent name.
     </description>
@@ -44,7 +44,7 @@
 
   <property>
     <name>http.agent.email</name>
-    <value>cubists at nsidc dot com</value>
+    <value>opendap at amberbiology dot com</value>
     <description>An email address to advertise in the HTTP 'From' request
      header and User-Agent header.
     </description>
@@ -52,7 +52,7 @@
 
   <property>
     <name>http.agent.host</name>
-    <value>nsidc.org</value>
+    <value></value>
     <description>Name or IP address of the host on which the Nutch crawler
     would be running. Currently this is used by 'protocol-httpclient'
     plugin.
