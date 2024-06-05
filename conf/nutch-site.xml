@@ -28,7 +28,7 @@
 
   <property>
     <name>http.agent.url</name>
-    <value>http://opendap.org</value>
+    <value>https://opendap.org</value>
     <description>A URL to advertise in the User-Agent header.  This will
      appear in parenthesis after the agent name.
     </description>
