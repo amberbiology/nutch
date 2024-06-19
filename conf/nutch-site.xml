@@ -193,7 +193,7 @@
 
   <property>
     <name>indexingfilter.bcube.allowed.mimetypes</name>
-    <value>application/xml text/xml opensearch wsdl wadl</value>
+    <value>application/xml text/xml text/plain opensearch wsdl wadl</value>
     <description>
         Determines the allowed mime types to index. It performs a partial matching, i.e.
         if a document has application/json and a value in this property is json or tion/json then that
@@ -432,6 +432,13 @@
       Solr
   </description>
 </property>
+
+<property>
+  <name>http.timeout</name>
+  <value>60000</value>
+  <description>The default network timeout, in milliseconds.</description>
+</property>
+
 
 <property>
   <name>solr.auth</name>
