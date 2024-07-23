@@ -193,7 +193,7 @@
 
   <property>
     <name>indexingfilter.bcube.allowed.mimetypes</name>
-    <value>application/xml text/xml text/plain opensearch wsdl wadl</value>
+    <value>application/xml text/xml text/html text/plain opensearch wsdl wadl</value>
     <description>
         Determines the allowed mime types to index. It performs a partial matching, i.e.
         if a document has application/json and a value in this property is json or tion/json then that
@@ -208,6 +208,17 @@
         TODO
     </description>
   </property>
+
+ <property>
+    <name>indexingfilter.bcube.allowed.html.regex</name>
+    <value><![CDATA[<pre[^>]*>\n?(Attributes \{.*\})\n?</pre>]]></value>
+    <description>
+      This is a regular expression that, if matched on text/html documents,
+      allows that HTML to be indexed, otherwise it is discarded. Requires that text/html
+      is included in the indexingfilter.bcube.allowed.mimetypes
+    </description>
+  </property>
+
 
 <!-- generator properties -->
 

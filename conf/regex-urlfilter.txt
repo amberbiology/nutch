@@ -44,4 +44,7 @@
 +^(http|https)://.*.eu/
 +^(http|https)://.*.int/
 
++^(http|https)://.opendap.org/
++^(http|https)://.*opendap.org/
+
 +(?:data|service)

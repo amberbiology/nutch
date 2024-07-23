@@ -19,6 +19,14 @@ package org.apache.nutch.indexer.bcubefilter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.regex.*;
+import java.io.StringReader;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.conf.Configuration;
@@ -33,6 +41,10 @@ import org.apache.nutch.metadata.HttpHeaders;
 import org.apache.nutch.parse.Parse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.nutch.util.NodeWalker;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /** 
  * Discards a document if the content is empty
@@ -42,6 +54,8 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 
   private Configuration conf;
   private List<String> allowedMimeTypes;
+
+  private String htmlRegularExpression;
 
  /**
   * The {@link DiscardBCubeIndexingFilter} filter object 
@@ -55,8 +69,8 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
   */
   public NutchDocument filter(NutchDocument doc, Parse parse, Text url, CrawlDatum datum, Inlinks inlinks)
     throws IndexingException {
-	  // For now just the mime type affects this filter
-	  if(mimeTypeFilter(doc) && urlFilter(doc) && relevantOrNot(doc)) {
+	  // just the mime type and the regular expression affects this filter
+          if(mimeTypeFilter(doc) && urlFilter(doc) && relevantOrNot(doc, parse)) {
           doc.removeField("content"); // we don't want it.
           doc.add("url_hash", DigestUtils.shaHex(doc.getFieldValue("id").toString()));
           for (String header: parse.getData().getContentMeta().names()) {
@@ -73,12 +87,39 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 	  return true;
   }
   
-  public boolean relevantOrNot(NutchDocument doc) {
+  public boolean relevantOrNot(NutchDocument doc, Parse parse) {
 	  //TODO [This method will send the URL, anchor text and perhaps 
 	  //  a set of limited tokens to a service that will decide
 	  //  if it is relevant (meaning is a web service or data) 
 	  //  and therefore it should be indexed.
-	  return true;
+
+	  String docMimeType = doc.getFieldValue("type").toString();
+	  LOG.info("mimetype: " + docMimeType);
+
+	  if (docMimeType == "text/html") {
+
+	      if (this.htmlRegularExpression != null) {  // only index text/html if regular expression is set
+
+		  LOG.info("text/html document: regular expression to search for: " + this.htmlRegularExpression);
+
+		  Pattern p = Pattern.compile(this.htmlRegularExpression, Pattern.DOTALL); // note DOTALL means that '.' in regular expression include newlines
+		  Matcher m = p.matcher(parse.getData().getMeta("raw_content"));
+
+		  if (m.find()) {
+		      LOG.info("text/html document to be indexed, includes regular expression:" + m.group(1));
+		      return true;
+		  } else {
+		      LOG.info("text/html document not to be indexed, did not include relevant regular expression");
+		      return false;
+		  }
+	      } else {
+		  LOG.warn("text/html document: no regular expression specified, don't index");
+		  return false;
+	      }
+	  } else {
+	      LOG.info(docMimeType + " document already an included mimetype for indexing");
+	      return true;
+	  }
   }  
   
   
@@ -109,6 +150,12 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
     } else {
     	this.allowedMimeTypes = Arrays.asList("application/xml", "text/xml", "json", "opensearchdescription+xml", "text/plain");
     }
+    String regularExpression = conf.get("indexingfilter.bcube.allowed.html.regex");
+    if (regularExpression != null) {
+	this.htmlRegularExpression = regularExpression;
+    } else {
+	this.htmlRegularExpression = null; // default to null
+    }
   }
 
   /**
@@ -117,5 +164,6 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
   public Configuration getConf() {
     return this.conf;
   }
-
+    
+    
 }

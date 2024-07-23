@@ -88,4 +88,53 @@ public class DiscardBCubeIndexingFilterTest {
 		
 		assertNull(doc);
 	}
+
+    	@Test
+	public void DiscardBCubeIndexingFilter_will_parse_html_documents() throws Exception {
+		Configuration conf = NutchConfiguration.create();
+		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
+		conf.set("indexingfilter.bcube.allowed.html.regex", "<pre[^>]*>\\n?(Attributes \\{.*\\})\\n?</pre>");
+		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html");
+		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
+		filter.setConf(conf);
+
+		NutchDocument doc = new NutchDocument();
+		
+		doc.add("type", "text/html");
+		
+		Parse parse = mock(Parse.class);
+		Metadata metadata = new Metadata();
+
+		String content = String.join("\n",
+					     "<!DOCTYPE html>",
+					     "<html> <pre style=\"white-space:pre-wrap;\">",
+					     "Attributes {",
+					     "s {",
+					     "alkalinity_total {",
+					     " Float32 actual_range 0.214, 2.899;",
+					     " String ioos_category &quot;Hydrology&quot;;",
+					     " String units &quot;millequivalents/liter&quot;;",
+					     "}",
+					     "</pre>",
+					     "</html>");
+		
+		metadata.add("raw_content", content);
+		ParseData parseData = new ParseData();
+		parseData.setParseMeta(metadata);
+
+		// Mock parser response
+		when(parse.getData()).thenReturn(parseData);
+
+		doc = filter.filter(doc, parse, null, null, null);
+
+		assertNotNull(doc);
+
+		assertTrue(doc.getFieldNames().contains("type"));
+		NutchField contentTypeField = doc.getField("type");
+		
+		String typeValue = contentTypeField.getValues().get(0).toString();
+		assertTrue(typeValue.equals("text/html"));
+		
+	}
+
 }
