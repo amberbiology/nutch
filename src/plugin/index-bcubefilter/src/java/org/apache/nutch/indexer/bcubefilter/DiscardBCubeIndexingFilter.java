@@ -94,7 +94,8 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 	  //  and therefore it should be indexed.
 
 	  String docMimeType = doc.getFieldValue("type").toString();
-	  LOG.info("mimetype: " + docMimeType);
+	  String url = doc.getFieldValue("id").toString();
+	  LOG.info("url: " + url + " mimetype: " + docMimeType);
 
 	  if (docMimeType == "text/html") {
 
@@ -126,12 +127,15 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
   public boolean mimeTypeFilter(NutchDocument doc) {
     if (doc.getField("type") != null) {
     	String documentType = doc.getField("type").getValues().get(0).toString();
+	String url = doc.getFieldValue("id").toString();
 	    for (String allowedType : this.allowedMimeTypes) {
     	  if (documentType.contains(allowedType)) {
+		  LOG.info("checking: " + url + " is a: " + documentType + " and will be indexed");
     		  // will be indexed
     		  return true;
     	  }
 	    }
+	    LOG.info("checking: " + url +  "is a: " + documentType + " and will NOT be indexed");
 	    return false;
     } else {
       LOG.warn("The index-more plugin should be added before this plugin in indexingfilter.order");
