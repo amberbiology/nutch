@@ -438,7 +438,7 @@
 
 <property>
   <name>solr.server.url</name>
-  <value>http://localhost:8983/solr/</value>
+  <value>http://34.217.11.223:8983/solr/</value>
   <description>
       Solr
   </description>
