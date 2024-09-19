@@ -34,7 +34,7 @@
 -^(http|https)://.*.com/
 
 # do not follow URLs with these words:
--(?:wp-includes|pid|wordpress|cpan|magazine|staff|jira|w3|review|gallery|ietf|windows|cite|xmlrpc|svn|apache|sport|bulletin|forum|senate|browse|plugins|module|contact|license|images|about|faq|embassy|foia|library|student|grant|reports|news|abstract|blog|calendar|schedule|publish|contrib|publication|twitter|citation|keywordsearch|gnu|libraries|people|policy|article|presentation|media|video|conference|summit|theme|manual|upload|music|personal|shop|cart|retail|thumbnail|author|health|tags|event|itemid|zenodo|seminar|courses|syndication|finance|mail|phone|accessibility|admissions|alumni|changelog|career|manifest)
+-(?:wp-includes|pid|wordpress|cpan|magazine|staff|jira|w3|review|gallery|ietf|windows|cite|xmlrpc|svn|apache|sport|bulletin|forum|senate|browse|plugins|module|contact|license|images|about|faq|embassy|foia|library|student|grant|reports|news|abstract|blog|calendar|schedule|publish|contrib|publication|twitter|citation|keywordsearch|gnu|libraries|people|policy|article|presentation|media|video|conference|summit|theme|manual|upload|music|personal|shop|cart|retail|thumbnail|author|health|tags|event|itemid|zenodo|seminar|courses|syndication|finance|mail|phone|accessibility|admissions|alumni|changelog|career|manifest|copyright|COPYRIGHT|README|tutorial|userguide|workshop|scripts)
 
 # all-top level .edu and .int
 +^(http|https)://.*.edu(:[0-9]+)?/
