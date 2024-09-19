@@ -133,3 +133,12 @@
 .xsd
 .dtd
 .xhtml
+
+# ignore error files
+.error.xml
+
+# skip erdap .graph file (already have HTML)
+.graph
+
+# skip plain text
+# .txt
