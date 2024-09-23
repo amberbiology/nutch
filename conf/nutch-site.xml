@@ -193,7 +193,7 @@
 
   <property>
     <name>indexingfilter.bcube.allowed.mimetypes</name>
-    <value>application/xml application/rdf text/xml text/html text/plain</value>
+    <value>application/xml text/xml text/html</value>
     <description>
         Determines the allowed mime types to index. It performs a partial matching, i.e.
         if a document has application/json and a value in this property is json or tion/json then that
