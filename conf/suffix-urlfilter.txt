@@ -140,5 +140,12 @@
 # skip erdap .graph file (already have HTML)
 .graph
 
+# skip OWL and RSS files
+.owl
+.rss
+
+# ignore
+.files_not_found
+
 # skip plain text
 # .txt
