@@ -40,14 +40,18 @@
 +^(http|https)://.*.edu(:[0-9]+)?/
 +^(http|https)://.*.int(:[0-9]+)?/
 
+# exclude all nasa.gov
+-^(http|https)://([a-zA-Z0-9-_]*\.)*nasa.gov(:[0-9]+)?/
+
+# all all the rest of the .gov
++^(http|https)://([a-zA-Z0-9-_]*\.)*.gov(:[0-9]+)?/
+
 # allow all in these subdomains
 +^(http|https)://([a-zA-Z0-9-_]*\.)*naturalsciences.be(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*ubc.ca(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*umanitoba.ca(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*emodnet-physics.eu(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*europa.eu(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*usgs.gov(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*noaa.gov(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*dren.mil(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*argodatamgt.org(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*cencoos.org(:[0-9]+)?/
