@@ -44,7 +44,7 @@
 -^(http|https)://([a-zA-Z0-9-_]*\.)*nasa.gov(:[0-9]+)?/
 
 # all all the rest of the .gov
-+^(http|https)://([a-zA-Z0-9-_]*\.)*.gov(:[0-9]+)?/
++^(http|https)://([a-zA-Z0-9-_]*\.)*gov(:[0-9]+)?/
 
 # allow all in these subdomains
 +^(http|https)://([a-zA-Z0-9-_]*\.)*naturalsciences.be(:[0-9]+)?/
