@@ -211,10 +211,11 @@
     </condition>
     <echo message="Testing plugin: ${name}"/>
 
-    <junit printsummary="yes" haltonfailure="no" fork="yes" forkmode="once"
+    <junit printsummary="on" haltonfailure="no" fork="true" forkmode="once"
       errorProperty="tests.failed" failureProperty="tests.failed" showoutput="${pluginTestsOutput}">
+      <jvmarg value="--add-opens=java.base/java.lang=ALL-UNNAMED"/>
       <jvmarg value="${remoteDebugJvmArgs}"/>
-    		
+      
       <sysproperty key="test.data" value="${build.test}/data"/>
       <sysproperty key="test.input" value="${root}/data"/>
       <sysproperty key="javax.xml.parsers.DocumentBuilderFactory" value="com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"/> 
@@ -222,7 +223,7 @@
       <formatter type="plain" />
       <batchtest todir="${build.test}" unless="testcase">
         <fileset dir="${src.test}"
-                 includes="**/Test*.java" excludes="**/${test.exclude}.java" />
+                 includes="**/*Test*.java" excludes="**/${test.exclude}.java" />
       </batchtest>
       <batchtest todir="${build.test}" if="testcase">
         <fileset dir="${src.test}" includes="**/${testcase}.java"/>
