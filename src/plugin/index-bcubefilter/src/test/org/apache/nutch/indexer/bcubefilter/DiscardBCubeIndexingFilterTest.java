@@ -45,6 +45,7 @@ public class DiscardBCubeIndexingFilterTest {
 		NutchDocument doc = new NutchDocument();
 		
 		doc.add("type", "application/opensearchdescription+xml");
+		doc.add("id", "https://notrealurl.example.net");
 
 		Parse parse = mock(Parse.class);
 		Metadata metadata = new Metadata();
@@ -75,6 +76,7 @@ public class DiscardBCubeIndexingFilterTest {
 		NutchDocument doc = new NutchDocument();
 		
 		doc.add("type", "text/html");
+		doc.add("id", "https://notrealurl.example.net");
 
 		Parse parse = mock(Parse.class);
 		Metadata metadata = new Metadata();
@@ -101,10 +103,12 @@ public class DiscardBCubeIndexingFilterTest {
 		NutchDocument doc = new NutchDocument();
 		
 		doc.add("type", "text/html");
+		doc.add("id", "https://notrealurl.example.net/foobar");
 		
 		Parse parse = mock(Parse.class);
 		Metadata metadata = new Metadata();
 
+		// simulate <pre> section in HTML page
 		String content = String.join("\n",
 					     "<!DOCTYPE html>",
 					     "<html> <pre style=\"white-space:pre-wrap;\">",
@@ -135,6 +139,49 @@ public class DiscardBCubeIndexingFilterTest {
 		String typeValue = contentTypeField.getValues().get(0).toString();
 		assertTrue(typeValue.equals("text/html"));
 		
+	}
+
+    	@Test
+	public void DiscardBCubeIndexingFilter_skip_indexing_url_filters() throws Exception {
+		Configuration conf = NutchConfiguration.create();
+		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
+		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml");		
+		conf.set("indexingfilter.bcube.forbidden.url.patterns", "wiki");
+		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
+		filter.setConf(conf);
+
+		NutchDocument doc = new NutchDocument();
+		doc.add("type", "text/html");
+		doc.add("id", "https://en.wikipedia.org/wiki/Apache_Nutch");
+		
+		Parse parse = mock(Parse.class);
+		Metadata metadata = new Metadata();
+		ParseData parseData = new ParseData();
+		parseData.setParseMeta(metadata);
+
+		// Mock parser response
+		when(parse.getData()).thenReturn(parseData);
+		doc = filter.filter(doc, parse, null, null, null);
+
+		assertNull(doc);  // skip because URL contains wiki
+
+		// second document
+		
+		NutchDocument doc2 = new NutchDocument();
+		doc2.add("type", "text/xml");
+		doc2.add("id", "https://foobar.org/baz.xml");
+		
+		Parse parse2 = mock(Parse.class);
+		Metadata metadata2 = new Metadata();
+		ParseData parseData2 = new ParseData();
+		parseData2.setParseMeta(metadata2);
+
+		// Mock parser response
+		when(parse2.getData()).thenReturn(parseData2);
+		doc2 = filter.filter(doc2, parse2, null, null, null);
+
+		assertNotNull(doc2);  // skip because URL contains wiki
+
 	}
 
 }

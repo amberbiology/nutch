@@ -54,8 +54,8 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 
   private Configuration conf;
   private List<String> allowedMimeTypes;
-
   private String htmlRegularExpression;
+  private List<String> urlRegularExpressions;
 
  /**
   * The {@link DiscardBCubeIndexingFilter} filter object 
@@ -83,12 +83,29 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
   }
   
   public boolean urlFilter(NutchDocument doc) {
-	  //TODO [This should not be a replacement for the URL regex.]
-	  return true;
+	  // This is not be a replacement for the URL regex, which excludes URL from *crawl*, not indexing
+
+          if (this.urlRegularExpressions != null) {  // skip if no patterns are set
+	      String url = doc.getFieldValue("id").toString();
+
+	      for (String urlExcludeRegex : this.urlRegularExpressions) {
+		  if (url.contains(urlExcludeRegex)) {
+   		    LOG.info(url + " contains: " + urlExcludeRegex + " and will NOT be indexed");
+		    // will NOT be indexed
+     		    return false;
+	           }
+             	   // no URL filter exclusion matched, so we continue to next check
+	      }
+	      LOG.info("url: " + url + " does not contain any forbidden keywords and is a candidate for indexing");
+	      return true;	      
+	  } else {
+	      return true;  // continue to next check for indexing
+	  }
   }
   
   public boolean relevantOrNot(NutchDocument doc, Parse parse) {
-	  //TODO [This method will send the URL, anchor text and perhaps 
+          //  filtering HTML based on regular expressions
+	  //  This method could also be used to send the URL, anchor text and perhaps 
 	  //  a set of limited tokens to a service that will decide
 	  //  if it is relevant (meaning is a web service or data) 
 	  //  and therefore it should be indexed.
@@ -128,15 +145,15 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
     if (doc.getField("type") != null) {
     	String documentType = doc.getField("type").getValues().get(0).toString();
 	String url = doc.getFieldValue("id").toString();
-	    for (String allowedType : this.allowedMimeTypes) {
+	for (String allowedType : this.allowedMimeTypes) {
     	  if (documentType.contains(allowedType)) {
 		  LOG.info("checking: " + url + " is a: " + documentType + " and will be indexed");
     		  // will be indexed
     		  return true;
     	  }
-	    }
-	    LOG.info("checking: " + url +  "is a: " + documentType + " and will NOT be indexed");
-	    return false;
+	}
+	LOG.info("checking: " + url +  " is a: " + documentType + " and will NOT be indexed");
+	return false;
     } else {
       LOG.warn("The index-more plugin should be added before this plugin in indexingfilter.order");
       return false;
@@ -154,12 +171,19 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
     } else {
     	this.allowedMimeTypes = Arrays.asList("application/xml", "text/xml", "json", "opensearchdescription+xml", "text/plain");
     }
-    String regularExpression = conf.get("indexingfilter.bcube.allowed.html.regex");
-    if (regularExpression != null) {
-	this.htmlRegularExpression = regularExpression;
+    String htmlRegularExpression = conf.get("indexingfilter.bcube.allowed.html.regex");
+    if (htmlRegularExpression != null) {
+	this.htmlRegularExpression = htmlRegularExpression;
     } else {
 	this.htmlRegularExpression = null; // default to null
     }
+    String urlRegularExpressions = conf.get("indexingfilter.bcube.forbidden.url.patterns");
+    if (urlRegularExpressions != null && !urlRegularExpressions.trim().isEmpty()) {
+	this.urlRegularExpressions = Arrays.asList(urlRegularExpressions.trim().split("\\s+"));
+    } else {
+	this.urlRegularExpressions = null; // default to null
+    }
+    
   }
 
   /**
