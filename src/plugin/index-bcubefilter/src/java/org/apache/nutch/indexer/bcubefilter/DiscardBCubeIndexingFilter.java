@@ -135,7 +135,7 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 		  return false;
 	      }
 	  } else {
-	      LOG.info(docMimeType + " document already an included mimetype for indexing");
+	      LOG.info(docMimeType + " document already passed included mimetypes for indexing");
 	      return true;
 	  }
   }  
@@ -147,7 +147,7 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 	String url = doc.getFieldValue("id").toString();
 	for (String allowedType : this.allowedMimeTypes) {
     	  if (documentType.contains(allowedType)) {
-		  LOG.info("checking: " + url + " is a: " + documentType + " and will be indexed");
+		  LOG.info("checking: " + url + " is a: " + documentType + " and is candidate for indexing");
     		  // will be indexed
     		  return true;
     	  }

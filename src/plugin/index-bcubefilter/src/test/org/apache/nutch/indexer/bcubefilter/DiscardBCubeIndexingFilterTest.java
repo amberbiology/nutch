@@ -17,6 +17,8 @@
 
 package org.apache.nutch.indexer.bcubefilter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -146,42 +148,45 @@ public class DiscardBCubeIndexingFilterTest {
 		Configuration conf = NutchConfiguration.create();
 		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
 		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml");		
-		conf.set("indexingfilter.bcube.forbidden.url.patterns", "wiki");
+		conf.set("indexingfilter.bcube.forbidden.url.patterns", "wiki allDatasets scripts");
 		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
 		filter.setConf(conf);
 
-		NutchDocument doc = new NutchDocument();
-		doc.add("type", "text/html");
-		doc.add("id", "https://en.wikipedia.org/wiki/Apache_Nutch");
+		// setup a series of test cases with expected result assuming above filtering patterns and MIME types
+		ArrayList<Object[]> theCases = new ArrayList<Object[]>(
+					   Arrays.asList(
+					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/html", true},
+					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/xml", true},  
+					      new Object[]{"https://foobar.org/baz.xml", "text/xml", false},
+					      new Object[]{"https://biology.university.edu/transcript/janebishop/home", "text/xml", false},
+					      new Object[]{"https://biology.university.edu/transcripts/janebishop/home", "text/xml", true},
+					      new Object[]{"https://erdap.noaa.gov/erdap/allDatasets.html/","text/html", true})
+								  );
+		// iterate through test cases
+		for (Object[] aCase : theCases) {
+		    String url = (String) aCase[0];
+		    String mime = (String) aCase[1];
+		    Boolean skipIndexing = (Boolean) aCase[2];
+
+		    NutchDocument doc = new NutchDocument();
+		    doc.add("id", url);
+		    doc.add("type", mime);
 		
-		Parse parse = mock(Parse.class);
-		Metadata metadata = new Metadata();
-		ParseData parseData = new ParseData();
-		parseData.setParseMeta(metadata);
+		    Parse parse = mock(Parse.class);
+		    Metadata metadata = new Metadata();
+		    ParseData parseData = new ParseData();
+		    parseData.setParseMeta(metadata);
 
-		// Mock parser response
-		when(parse.getData()).thenReturn(parseData);
-		doc = filter.filter(doc, parse, null, null, null);
+		    // Mock parser response
+		    when(parse.getData()).thenReturn(parseData);
+		    doc = filter.filter(doc, parse, null, null, null);
 
-		assertNull(doc);  // skip because URL contains wiki
-
-		// second document
-		
-		NutchDocument doc2 = new NutchDocument();
-		doc2.add("type", "text/xml");
-		doc2.add("id", "https://foobar.org/baz.xml");
-		
-		Parse parse2 = mock(Parse.class);
-		Metadata metadata2 = new Metadata();
-		ParseData parseData2 = new ParseData();
-		parseData2.setParseMeta(metadata2);
-
-		// Mock parser response
-		when(parse2.getData()).thenReturn(parseData2);
-		doc2 = filter.filter(doc2, parse2, null, null, null);
-
-		assertNotNull(doc2);  // skip because URL contains wiki
-
+		    if (skipIndexing) {
+			assertNull(doc);  // if indexing skipping expected, then doc will be null
+		    } else {
+			assertNotNull(doc); // if indexing skipping NOT expected, then doc will be non-null
+		    }
+		}
 	}
-
+    
 }
