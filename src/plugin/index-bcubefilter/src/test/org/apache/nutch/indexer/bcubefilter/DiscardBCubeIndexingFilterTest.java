@@ -148,14 +148,14 @@ public class DiscardBCubeIndexingFilterTest {
 		Configuration conf = NutchConfiguration.create();
 		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
 		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml");		
-		conf.set("indexingfilter.bcube.forbidden.url.patterns", "wiki allDatasets scripts error\\.xml$ \\.rss$ \\.rdf$");
+		conf.set("indexingfilter.bcube.forbidden.url.patterns", "allDatasets scripts tutorial userguide workshop announcement sitemap wiki error\\.xml$ \\.rss$ \\.rdf$");
 		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
 		filter.setConf(conf);
 
 		// setup a series of test cases with expected result assuming above filtering patterns and MIME types
 		ArrayList<Object[]> theCases = new ArrayList<Object[]>(
 					   Arrays.asList(
-					      // keyword exclusion tests for "wiki", "scripts", "allDatasets
+					      // keyword exclusion tests for "wiki", "scripts", "allDatasets"
 					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/html", true}, // "wiki" appears
 					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/xml", true},  
 					      new Object[]{"https://example.gov/baz.xml", "text/xml", false},  // no forbidden patterns appear in URL
