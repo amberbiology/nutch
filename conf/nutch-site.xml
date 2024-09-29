@@ -205,7 +205,9 @@
     <name>indexingfilter.bcube.forbidden.url.patterns</name>
     <value></value>
     <description>
-        TODO
+         Determines URL patterns to be excluded from indexing. This consists of a series of
+         single-spaced separated regular expressions (that cannot themselves contain spaces), each
+	 representing a URL pattern to be excluded (note need to escape regular expression literals).
     </description>
   </property>
 
