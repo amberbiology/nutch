@@ -55,7 +55,7 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
   private Configuration conf;
   private List<String> allowedMimeTypes;
   private String htmlRegularExpression;
-  private List<String> urlRegularExpressions;
+  private List<Pattern> urlRegularExpressions;
 
  /**
   * The {@link DiscardBCubeIndexingFilter} filter object 
@@ -88,13 +88,13 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
           if (this.urlRegularExpressions != null) {  // skip if no patterns are set
 	      String url = doc.getFieldValue("id").toString();
 
-	      for (String urlExcludeRegex : this.urlRegularExpressions) {
-		  if (url.contains(urlExcludeRegex)) {
+	      for (Pattern urlExcludeRegex : this.urlRegularExpressions) {
+		  Matcher m = urlExcludeRegex.matcher(url);
+		  if (m.find()) {
    		    LOG.info(url + " contains: " + urlExcludeRegex + " and will NOT be indexed");
-		    // will NOT be indexed
-     		    return false;
+     		    return false;  // will NOT be indexed
 	           }
-             	   // no URL filter exclusion matched, so we continue to next check
+             	   // no URL filter exclusion matched, so we continue to next regex pattern
 	      }
 	      LOG.info("url: " + url + " does not contain any forbidden keywords and is a candidate for indexing");
 	      return true;	      
@@ -177,9 +177,14 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
     } else {
 	this.htmlRegularExpression = null; // default to null
     }
-    String urlRegularExpressions = conf.get("indexingfilter.bcube.forbidden.url.patterns");
-    if (urlRegularExpressions != null && !urlRegularExpressions.trim().isEmpty()) {
-	this.urlRegularExpressions = Arrays.asList(urlRegularExpressions.trim().split("\\s+"));
+    String urlRegexStrings = conf.get("indexingfilter.bcube.forbidden.url.patterns");
+    if (urlRegexStrings != null && !urlRegexStrings.trim().isEmpty()) {
+	final String[] regexStringList = urlRegexStrings.trim().split("\\s+"); // split into a list
+	this.urlRegularExpressions = new ArrayList<Pattern>() {{
+		for (String regex : regexStringList) {
+		    add(Pattern.compile(regex));  // turn each regex string into a compiled regex
+		}
+	    }};
     } else {
 	this.urlRegularExpressions = null; // default to null
     }

@@ -148,19 +148,30 @@ public class DiscardBCubeIndexingFilterTest {
 		Configuration conf = NutchConfiguration.create();
 		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
 		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml");		
-		conf.set("indexingfilter.bcube.forbidden.url.patterns", "wiki allDatasets scripts");
+		conf.set("indexingfilter.bcube.forbidden.url.patterns", "wiki allDatasets scripts error\\.xml$ \\.rss$ \\.rdf$");
 		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
 		filter.setConf(conf);
 
 		// setup a series of test cases with expected result assuming above filtering patterns and MIME types
 		ArrayList<Object[]> theCases = new ArrayList<Object[]>(
 					   Arrays.asList(
-					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/html", true},
+					      // keyword exclusion tests for "wiki", "scripts", "allDatasets
+					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/html", true}, // "wiki" appears
 					      new Object[]{"https://en.wikipedia.org/wiki/Apache_Nutch", "text/xml", true},  
-					      new Object[]{"https://foobar.org/baz.xml", "text/xml", false},
-					      new Object[]{"https://biology.university.edu/transcript/janebishop/home", "text/xml", false},
-					      new Object[]{"https://biology.university.edu/transcripts/janebishop/home", "text/xml", true},
-					      new Object[]{"https://erdap.noaa.gov/erdap/allDatasets.html/","text/html", true})
+					      new Object[]{"https://example.gov/baz.xml", "text/xml", false},  // no forbidden patterns appear in URL
+					      new Object[]{"https://example.edu/transcript/janebishop/home", "text/xml", false}, // "script" not "scripts"!
+					      new Object[]{"https://example.edu/transcripts/janebishop/home", "text/xml", true}, // yes this has "scripts"
+					      new Object[]{"https://example.gov/erdap/allDatasets.html/","text/html", true},   // "allDatasets" exclude
+
+					      // suffix exclusion tests: error.xml, .rss
+					      new Object[]{"https://example.gov/server/error.xml", "text/xml", true},  // error.xml is a suffix
+					      new Object[]{"https://example.gov/server/errorsxml", "text/xml", false},  // not a suffix "missing '.'"!
+					      new Object[]{"https://example.gov/error.xml_extra", "text/xml", false}, // don't exclude (not suffix!)
+					      new Object[]{"https://example.gov/data.rdf", "text/xml", true},   // .rdf exclude
+					      new Object[]{"https://example.gov/data.rss", "text/xml", true},   // .rss exclude
+					      new Object[]{"https://example.gov/datarss", "text/xml", false},   // don't exclude! (missing period)
+					      new Object[]{"https://example.gov/test_rss_feed", "text/xml", false},   // don't exclude! (missing period)
+					      new Object[]{"https://example.gov/data.rss/baz", "text/xml", false})   // don't exclude! (not suffix!)
 								  );
 		// iterate through test cases
 		for (Object[] aCase : theCases) {
