@@ -203,7 +203,7 @@
 
  <property>
     <name>indexingfilter.bcube.forbidden.url.patterns</name>
-    <value></value>
+    <value>wp-content wp-embedded-content /errdap/wms/ allDatasets scripts tutorial userguide workshop announcement sitemap wiki error\\.xml$ \\.rss$ \\.gs$</value>
     <description>
          Determines URL patterns to be excluded from indexing. This consists of a series of
          single-spaced separated regular expressions (that cannot themselves contain spaces), each

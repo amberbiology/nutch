@@ -148,7 +148,7 @@ public class DiscardBCubeIndexingFilterTest {
 		Configuration conf = NutchConfiguration.create();
 		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
 		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml");		
-		conf.set("indexingfilter.bcube.forbidden.url.patterns", "allDatasets scripts tutorial userguide workshop announcement sitemap wiki error\\.xml$ \\.rss$ \\.rdf$");
+		conf.set("indexingfilter.bcube.forbidden.url.patterns", "/errdap/wms/ allDatasets scripts tutorial userguide workshop announcement sitemap wiki error\\.xml$ \\.rss$ \\.rdf$");
 		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
 		filter.setConf(conf);
 
@@ -161,8 +161,9 @@ public class DiscardBCubeIndexingFilterTest {
 					      new Object[]{"https://example.gov/baz.xml", "text/xml", false},  // no forbidden patterns appear in URL
 					      new Object[]{"https://example.edu/transcript/janebishop/home", "text/xml", false}, // "script" not "scripts"!
 					      new Object[]{"https://example.edu/transcripts/janebishop/home", "text/xml", true}, // yes this has "scripts"
-					      new Object[]{"https://example.gov/erdap/allDatasets.html/","text/html", true},   // "allDatasets" exclude
-
+					      new Object[]{"https://example.gov/errdap/allDatasets.html/","text/html", true},   // "allDatasets" exclude
+					      new Object[]{"https://example.gov/errdap/wms/stuff/","text/xml", true},   // "/errdap/wms/" exclude
+					      
 					      // suffix exclusion tests: error.xml, .rss
 					      new Object[]{"https://example.gov/server/error.xml", "text/xml", true},  // error.xml is a suffix
 					      new Object[]{"https://example.gov/server/errorsxml", "text/xml", false},  // not a suffix "missing '.'"!

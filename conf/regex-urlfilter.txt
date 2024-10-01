@@ -34,11 +34,12 @@
 -^(http|https)://.*.com/
 
 # do not follow URLs with these words:
--(?:wp-includes|pid|wordpress|cpan|magazine|staff|jira|w3|review|gallery|ietf|windows|cite|xmlrpc|svn|apache|sport|bulletin|forum|senate|browse|plugins|module|contact|license|images|about|faq|embassy|foia|library|student|grant|reports|news|abstract|blog|calendar|schedule|publish|contrib|publication|twitter|citation|keywordsearch|gnu|libraries|people|policy|article|presentation|media|video|conference|summit|theme|manual|upload|music|personal|shop|cart|retail|thumbnail|author|health|tags|event|itemid|zenodo|seminar|courses|syndication|finance|mail|phone|accessibility|admissions|alumni|changelog|career|manifest|copyright|COPYRIGHT|README|tutorial|userguide|workshop|scripts|template|faculty|bibcite|arcgis|announcement|sitemap|transcript|vivo|wiki|zotero)
+-(?:wp-includes|pid|wordpress|cpan|magazine|staff|jira|w3|review|gallery|ietf|windows|cite|xmlrpc|svn|apache|sport|bulletin|forum|senate|browse|plugins|module|contact|license|images|about|faq|embassy|foia|library|student|grant|reports|news|abstract|blog|calendar|schedule|publish|contrib|publication|twitter|citation|keywordsearch|gnu|libraries|people|policy|article|presentation|media|video|conference|summit|theme|manual|upload|music|personal|shop|cart|retail|thumbnail|author|health|tags|event|itemid|zenodo|seminar|courses|syndication|finance|mail|phone|accessibility|admissions|alumni|changelog|career|manifest|copyright|COPYRIGHT|README|tutorial|userguide|workshop|scripts|template|faculty|bibcite|arcgis|announcement|sitemap|transcript|vivo|wiki|zotero|advising)
 
-# all-top level .edu and .int
+# all-top level .edu, .int, .eu
 +^(http|https)://.*.edu(:[0-9]+)?/
 +^(http|https)://.*.int(:[0-9]+)?/
++^(http|https)://.*.eu(:[0-9]+)?/
 
 # exclude all nasa.gov
 -^(http|https)://([a-zA-Z0-9-_]*\.)*nasa.gov(:[0-9]+)?/
@@ -46,22 +47,14 @@
 # all all the rest of the .gov
 +^(http|https)://([a-zA-Z0-9-_]*\.)*gov(:[0-9]+)?/
 
+# all all the rest of the .org
++^(http|https)://([a-zA-Z0-9-_]*\.)*org(:[0-9]+)?/
+
 # allow all in these subdomains
 +^(http|https)://([a-zA-Z0-9-_]*\.)*naturalsciences.be(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*ubc.ca(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*umanitoba.ca(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*emodnet-physics.eu(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*europa.eu(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*dren.mil(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*argodatamgt.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*cencoos.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*emso-fr.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*esipfed.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*hydroshare.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*iode.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*sccoos.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*voiceoftheocean.org(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*oceanobservatories.org(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*github.io(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*cnr.it(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*met.no(:[0-9]+)?/

@@ -141,8 +141,11 @@
 .graph
 
 # skip OWL and RSS files
+.rdf
 .owl
-.rss
+.ttl
+.omn
+.obo
 
 # ignore
 .files_not_found
