@@ -149,6 +149,7 @@
 
 # ignore
 .files_not_found
+.log
 
 # skip plain text
 # .txt
