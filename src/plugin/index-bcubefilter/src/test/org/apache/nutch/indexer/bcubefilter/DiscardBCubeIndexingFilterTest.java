@@ -147,8 +147,8 @@ public class DiscardBCubeIndexingFilterTest {
 	public void DiscardBCubeIndexingFilter_skip_indexing_url_filters() throws Exception {
 		Configuration conf = NutchConfiguration.create();
 		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
-		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml");		
-		conf.set("indexingfilter.bcube.forbidden.url.patterns", "/errdap/wms/ allDatasets scripts tutorial userguide workshop announcement sitemap wiki error\\.xml$ \\.rss$ \\.rdf$");
+		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html text/xml application/xml");		
+		conf.set("indexingfilter.bcube.forbidden.url.patterns", "/errdap/wms/ /oembed/[0-9\\.]+/embed /ows\\?service=WCS /ows\\?service=wfs allDatasets scripts tutorial userguide workshop announcement sitemap wiki error\\.xml$ \\.rss$ \\.rdf$");
 		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
 		filter.setConf(conf);
 
@@ -162,7 +162,15 @@ public class DiscardBCubeIndexingFilterTest {
 					      new Object[]{"https://example.edu/transcript/janebishop/home", "text/xml", false}, // "script" not "scripts"!
 					      new Object[]{"https://example.edu/transcripts/janebishop/home", "text/xml", true}, // yes this has "scripts"
 					      new Object[]{"https://example.gov/errdap/allDatasets.html/","text/html", true},   // "allDatasets" exclude
+					      new Object[]{"https://example.gov/errdap/alldatasets.html/","text/html", true},   // "allDatasets" exclude, lowercase!
 					      new Object[]{"https://example.gov/errdap/wms/stuff/","text/xml", true},   // "/errdap/wms/" exclude
+
+					      new Object[]{"https://example.gov/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fexample.gov%2F&format=xml", "application/xml", true},
+					      new Object[]{"https://example.gov/wp-json/oembed/FOO/embed?url=https%3A%2F%2Fexample.gov%2F&format=xml", "application/xml", false},
+
+					      new Object[]{"https://example.edu/foo/ows?service=wfs", "text/xml", true},
+					      new Object[]{"https://example.edu/foo/OWS?service=Wfs", "text/xml", true},
+					      new Object[]{"https://example.edu/foo/OWS_service=Wfs", "text/xml", false}, // doesn't NOT contain the query
 					      
 					      // suffix exclusion tests: error.xml, .rss
 					      new Object[]{"https://example.gov/server/error.xml", "text/xml", true},  // error.xml is a suffix

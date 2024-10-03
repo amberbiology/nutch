@@ -182,7 +182,7 @@ public class DiscardBCubeIndexingFilter implements IndexingFilter {
 	final String[] regexStringList = urlRegexStrings.trim().split("\\s+"); // split into a list
 	this.urlRegularExpressions = new ArrayList<Pattern>() {{
 		for (String regex : regexStringList) {
-		    add(Pattern.compile(regex));  // turn each regex string into a compiled regex
+		    add(Pattern.compile(regex, Pattern.CASE_INSENSITIVE));  // turn each regex string into a compiled regex
 		}
 	    }};
     } else {
