@@ -4,7 +4,7 @@
 +I
 
 # filter on URL path only
-+P
+#+P
 # comment out to filter on complete URL
 # but be aware that the pattern
 #    .com
