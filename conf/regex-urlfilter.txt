@@ -54,13 +54,544 @@
 +^(http|https)://([a-zA-Z0-9-_]*\.)*org(:[0-9]+)?/
 
 # allow all in these subdomains
-+^(http|https)://([a-zA-Z0-9-_]*\.)*naturalsciences.be(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*ubc.ca(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*umanitoba.ca(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*dren.mil(:[0-9]+)?/
 +^(http|https)://([a-zA-Z0-9-_]*\.)*github.io(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*cnr.it(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*met.no(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*nilu.no(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*ac.uk(:[0-9]+)?/
-+^(http|https)://([a-zA-Z0-9-_]*\.)*linkedsystems.uk(:[0-9]+)?/
+
+# Afghanistan
++^(http|https)://.*.af(:[0-9]+)?/
+# Åland
++^(http|https)://.*.ax(:[0-9]+)?/
+# Albania
++^(http|https)://.*.al(:[0-9]+)?/
+# Algeria
++^(http|https)://.*.dz(:[0-9]+)?/
+# American Samoa
++^(http|https)://.*.as(:[0-9]+)?/
+# Andorra
++^(http|https)://.*.ad(:[0-9]+)?/
+# Angola
++^(http|https)://.*.ao(:[0-9]+)?/
+# Anguilla
++^(http|https)://.*.ai(:[0-9]+)?/
+# Antarctica
++^(http|https)://.*.aq(:[0-9]+)?/
+# Antigua and Barbuda
++^(http|https)://.*.ag(:[0-9]+)?/
+# Argentina
++^(http|https)://.*.ar(:[0-9]+)?/
+# Armenia
++^(http|https)://.*.am(:[0-9]+)?/
+# Aruba
++^(http|https)://.*.aw(:[0-9]+)?/
+# Ascension Island
++^(http|https)://.*.ac(:[0-9]+)?/
+# Australia
++^(http|https)://.*.au(:[0-9]+)?/
+# Austria
++^(http|https)://.*.at(:[0-9]+)?/
+# Azerbaijan
++^(http|https)://.*.az(:[0-9]+)?/
+# Bahamas
++^(http|https)://.*.bs(:[0-9]+)?/
+# Bahrain
++^(http|https)://.*.bh(:[0-9]+)?/
+# Bangladesh
++^(http|https)://.*.bd(:[0-9]+)?/
+# Barbados
++^(http|https)://.*.bb(:[0-9]+)?/
+# Basque Country
++^(http|https)://.*.eus(:[0-9]+)?/
+# Belarus
++^(http|https)://.*.by(:[0-9]+)?/
+# Belgium
++^(http|https)://.*.be(:[0-9]+)?/
+# Belize
++^(http|https)://.*.bz(:[0-9]+)?/
+# Benin
++^(http|https)://.*.bj(:[0-9]+)?/
+# Bermuda
++^(http|https)://.*.bm(:[0-9]+)?/
+# Bhutan
++^(http|https)://.*.bt(:[0-9]+)?/
+# Bolivia
++^(http|https)://.*.bo(:[0-9]+)?/
+# Bonaire
++^(http|https)://.*.bq(:[0-9]+)?/
+# Bonaire
++^(http|https)://.*.an(:[0-9]+)?/
+# Bonaire
++^(http|https)://.*.nl(:[0-9]+)?/
+# Bosnia and Herzegovina
++^(http|https)://.*.ba(:[0-9]+)?/
+# Botswana
++^(http|https)://.*.bw(:[0-9]+)?/
+# Bouvet Island
++^(http|https)://.*.bv(:[0-9]+)?/
+# Brazil
++^(http|https)://.*.br(:[0-9]+)?/
+# British Indian Ocean Territory
++^(http|https)://.*.io(:[0-9]+)?/
+# British Virgin Islands
++^(http|https)://.*.vg(:[0-9]+)?/
+# Brunei
++^(http|https)://.*.bn(:[0-9]+)?/
+# Bulgaria
++^(http|https)://.*.bg(:[0-9]+)?/
+# Burkina Faso
++^(http|https)://.*.bf(:[0-9]+)?/
+# Burma (officially: Myanmar)
++^(http|https)://.*.mm(:[0-9]+)?/
+# Burundi
++^(http|https)://.*.bi(:[0-9]+)?/
+# Cambodia
++^(http|https)://.*.kh(:[0-9]+)?/
+# Cameroon
++^(http|https)://.*.cm(:[0-9]+)?/
+# Canada
++^(http|https)://.*.ca(:[0-9]+)?/
+# Cape Verde (in Portuguese: Cabo Verde)
++^(http|https)://.*.cv(:[0-9]+)?/
+# Catalonia
++^(http|https)://.*.cat(:[0-9]+)?/
+# Cayman Islands
++^(http|https)://.*.ky(:[0-9]+)?/
+# Central African Republic
++^(http|https)://.*.cf(:[0-9]+)?/
+# Chad
++^(http|https)://.*.td(:[0-9]+)?/
+# Chile
++^(http|https)://.*.cl(:[0-9]+)?/
+# China, People’s Republic of
++^(http|https)://.*.cn(:[0-9]+)?/
+# Christmas Island
++^(http|https)://.*.cx(:[0-9]+)?/
+# Cocos (Keeling) Islands
++^(http|https)://.*.cc(:[0-9]+)?/
+# Colombia
++^(http|https)://.*.co(:[0-9]+)?/
+# Comoros
++^(http|https)://.*.km(:[0-9]+)?/
+# Congo, Democratic Republic of the (Congo-Kinshasa)
++^(http|https)://.*.cd(:[0-9]+)?/
+# Congo, Republic of the (Congo-Brazzaville)
++^(http|https)://.*.cg(:[0-9]+)?/
+# Cook Islands
++^(http|https)://.*.ck(:[0-9]+)?/
+# Costa Rica
++^(http|https)://.*.cr(:[0-9]+)?/
+# Côte d’Ivoire (Ivory Coast)
++^(http|https)://.*.ci(:[0-9]+)?/
+# Croatia
++^(http|https)://.*.hr(:[0-9]+)?/
+# Cuba
++^(http|https)://.*.cu(:[0-9]+)?/
+# Curaçao
++^(http|https)://.*.cw(:[0-9]+)?/
+# Cyprus
++^(http|https)://.*.cy(:[0-9]+)?/
+# Czechia (Czech Republic)
++^(http|https)://.*.cz(:[0-9]+)?/
+# Denmark
++^(http|https)://.*.dk(:[0-9]+)?/
+# Djibouti
++^(http|https)://.*.dj(:[0-9]+)?/
+# Dominica
++^(http|https)://.*.dm(:[0-9]+)?/
+# Dominican Republic
++^(http|https)://.*.do(:[0-9]+)?/
+# East Timor (Timor-Leste)
++^(http|https)://.*.tl(:[0-9]+)?/
+# East Timor (Timor-Leste)
++^(http|https)://.*.tp(:[0-9]+)?/
+# Ecuador
++^(http|https)://.*.ec(:[0-9]+)?/
+# Egypt
++^(http|https)://.*.eg(:[0-9]+)?/
+# El Salvador
++^(http|https)://.*.sv(:[0-9]+)?/
+# Equatorial Guinea
++^(http|https)://.*.gq(:[0-9]+)?/
+# Eritrea
++^(http|https)://.*.er(:[0-9]+)?/
+# Estonia
++^(http|https)://.*.ee(:[0-9]+)?/
+# Ethiopia
++^(http|https)://.*.et(:[0-9]+)?/
+# European Union
++^(http|https)://.*.eu(:[0-9]+)?/
+# Falkland Islands
++^(http|https)://.*.fk(:[0-9]+)?/
+# Faeroe Islands
++^(http|https)://.*.fo(:[0-9]+)?/
+# Federated States of Micronesia
++^(http|https)://.*.fm(:[0-9]+)?/
+# Fiji
++^(http|https)://.*.fj(:[0-9]+)?/
+# Finland
++^(http|https)://.*.fi(:[0-9]+)?/
+# France
++^(http|https)://.*.fr(:[0-9]+)?/
+# French Guiana
++^(http|https)://.*.gf(:[0-9]+)?/
+# French Polynesia
++^(http|https)://.*.pf(:[0-9]+)?/
+# French Southern and Antarctic Lands
++^(http|https)://.*.tf(:[0-9]+)?/
+# Gabon (officially: Gabonese Republic)
++^(http|https)://.*.ga(:[0-9]+)?/
+# Galicia
++^(http|https)://.*.gal(:[0-9]+)?/
+# Gambia
++^(http|https)://.*.gm(:[0-9]+)?/
+# Gaza Strip (Gaza)
++^(http|https)://.*.ps(:[0-9]+)?/
+# Georgia
++^(http|https)://.*.ge(:[0-9]+)?/
+# Germany
++^(http|https)://.*.de(:[0-9]+)?/
+# Ghana
++^(http|https)://.*.gh(:[0-9]+)?/
+# Gibraltar
++^(http|https)://.*.gi(:[0-9]+)?/
+# Greece
++^(http|https)://.*.gr(:[0-9]+)?/
+# Greenland
++^(http|https)://.*.gl(:[0-9]+)?/
+# Grenada
++^(http|https)://.*.gd(:[0-9]+)?/
+# Guadeloupe
++^(http|https)://.*.gp(:[0-9]+)?/
+# Guam
++^(http|https)://.*.gu(:[0-9]+)?/
+# Guatemala
++^(http|https)://.*.gt(:[0-9]+)?/
+# Guernsey
++^(http|https)://.*.gg(:[0-9]+)?/
+# Guinea
++^(http|https)://.*.gn(:[0-9]+)?/
+# Guinea-Bissau
++^(http|https)://.*.gw(:[0-9]+)?/
+# Guyana
++^(http|https)://.*.gy(:[0-9]+)?/
+# Haiti
++^(http|https)://.*.ht(:[0-9]+)?/
+# Heard Island and McDonald Islands
++^(http|https)://.*.hm(:[0-9]+)?/
+# Honduras
++^(http|https)://.*.hn(:[0-9]+)?/
+# Hong Kong
++^(http|https)://.*.hk(:[0-9]+)?/
+# Hungary
++^(http|https)://.*.hu(:[0-9]+)?/
+# Iceland
++^(http|https)://.*.is(:[0-9]+)?/
+# India
++^(http|https)://.*.in(:[0-9]+)?/
+# Indonesia
++^(http|https)://.*.id(:[0-9]+)?/
+# Iran
++^(http|https)://.*.ir(:[0-9]+)?/
+# Iraq
++^(http|https)://.*.iq(:[0-9]+)?/
+# Ireland
++^(http|https)://.*.ie(:[0-9]+)?/
+# Isle of Man
++^(http|https)://.*.im(:[0-9]+)?/
+# Israel
++^(http|https)://.*.il(:[0-9]+)?/
+# Italy
++^(http|https)://.*.it(:[0-9]+)?/
+# Jamaica
++^(http|https)://.*.jm(:[0-9]+)?/
+# Japan
++^(http|https)://.*.jp(:[0-9]+)?/
+# Jersey
++^(http|https)://.*.je(:[0-9]+)?/
+# Jordan
++^(http|https)://.*.jo(:[0-9]+)?/
+# Kazakhstan
++^(http|https)://.*.kz(:[0-9]+)?/
+# Kenya
++^(http|https)://.*.ke(:[0-9]+)?/
+# Kiribati
++^(http|https)://.*.ki(:[0-9]+)?/
+# Kuwait
++^(http|https)://.*.kw(:[0-9]+)?/
+# Kyrgyzstan
++^(http|https)://.*.kg(:[0-9]+)?/
+# Laos
++^(http|https)://.*.la(:[0-9]+)?/
+# Latvia
++^(http|https)://.*.lv(:[0-9]+)?/
+# Lebanon
++^(http|https)://.*.lb(:[0-9]+)?/
+# Lesotho
++^(http|https)://.*.ls(:[0-9]+)?/
+# Liberia
++^(http|https)://.*.lr(:[0-9]+)?/
+# Libya
++^(http|https)://.*.ly(:[0-9]+)?/
+# Liechtenstein
++^(http|https)://.*.li(:[0-9]+)?/
+# Lithuania
++^(http|https)://.*.lt(:[0-9]+)?/
+# Luxembourg
++^(http|https)://.*.lu(:[0-9]+)?/
+# Macau
++^(http|https)://.*.mo(:[0-9]+)?/
+# Macedonia, Republic of (the former Yugoslav Republic of Macedonia, FYROM)
++^(http|https)://.*.mk(:[0-9]+)?/
+# Madagascar
++^(http|https)://.*.mg(:[0-9]+)?/
+# Malawi
++^(http|https)://.*.mw(:[0-9]+)?/
+# Malaysia
++^(http|https)://.*.my(:[0-9]+)?/
+# Maldives
++^(http|https)://.*.mv(:[0-9]+)?/
+# Mali
++^(http|https)://.*.ml(:[0-9]+)?/
+# Malta
++^(http|https)://.*.mt(:[0-9]+)?/
+# Marshall Islands
++^(http|https)://.*.mh(:[0-9]+)?/
+# Martinique
++^(http|https)://.*.mq(:[0-9]+)?/
+# Mauritania
++^(http|https)://.*.mr(:[0-9]+)?/
+# Mauritius
++^(http|https)://.*.mu(:[0-9]+)?/
+# Mayotte
++^(http|https)://.*.yt(:[0-9]+)?/
+# Mexico
++^(http|https)://.*.mx(:[0-9]+)?/
+# Moldova
++^(http|https)://.*.md(:[0-9]+)?/
+# Monaco
++^(http|https)://.*.mc(:[0-9]+)?/
+# Mongolia
++^(http|https)://.*.mn(:[0-9]+)?/
+# Montenegro
++^(http|https)://.*.me(:[0-9]+)?/
+# Montserrat
++^(http|https)://.*.ms(:[0-9]+)?/
+# Morocco
++^(http|https)://.*.ma(:[0-9]+)?/
+# Mozambique
++^(http|https)://.*.mz(:[0-9]+)?/
+# Myanmar
++^(http|https)://.*.mm(:[0-9]+)?/
+# Namibia
++^(http|https)://.*.na(:[0-9]+)?/
+# Nauru
++^(http|https)://.*.nr(:[0-9]+)?/
+# Nepal
++^(http|https)://.*.np(:[0-9]+)?/
+# Netherlands
++^(http|https)://.*.nl(:[0-9]+)?/
+# New Caledonia
++^(http|https)://.*.nc(:[0-9]+)?/
+# New Zealand
++^(http|https)://.*.nz(:[0-9]+)?/
+# Nicaragua
++^(http|https)://.*.ni(:[0-9]+)?/
+# Niger
++^(http|https)://.*.ne(:[0-9]+)?/
+# Nigeria
++^(http|https)://.*.ng(:[0-9]+)?/
+# Niue
++^(http|https)://.*.nu(:[0-9]+)?/
+# Norfolk Island
++^(http|https)://.*.nf(:[0-9]+)?/
+# North Cyprus (unrecognised, self-declared state)
++^(http|https)://.*.nc(:[0-9]+)?/
+# North Cyprus (unrecognised, self-declared state)
++^(http|https)://.*.tr(:[0-9]+)?/
+# Northern Mariana Islands
++^(http|https)://.*.mp(:[0-9]+)?/
+# Norway
++^(http|https)://.*.no(:[0-9]+)?/
+# Oman
++^(http|https)://.*.om(:[0-9]+)?/
+# Pakistan
++^(http|https)://.*.pk(:[0-9]+)?/
+# Palau
++^(http|https)://.*.pw(:[0-9]+)?/
+# Palestine
++^(http|https)://.*.ps(:[0-9]+)?/
+# Panama
++^(http|https)://.*.pa(:[0-9]+)?/
+# Papua New Guinea
++^(http|https)://.*.pg(:[0-9]+)?/
+# Paraguay
++^(http|https)://.*.py(:[0-9]+)?/
+# Peru
++^(http|https)://.*.pe(:[0-9]+)?/
+# Philippines
++^(http|https)://.*.ph(:[0-9]+)?/
+# Pitcairn Islands
++^(http|https)://.*.pn(:[0-9]+)?/
+# Poland
++^(http|https)://.*.pl(:[0-9]+)?/
+# Portugal
++^(http|https)://.*.pt(:[0-9]+)?/
+# Puerto Rico
++^(http|https)://.*.pr(:[0-9]+)?/
+# Qatar
++^(http|https)://.*.qa(:[0-9]+)?/
+# Romania
++^(http|https)://.*.ro(:[0-9]+)?/
+# Rwanda
++^(http|https)://.*.rw(:[0-9]+)?/
+# Réunion Island
++^(http|https)://.*.re(:[0-9]+)?/
+# Saba
++^(http|https)://.*.bq(:[0-9]+)?/
+# Saba
++^(http|https)://.*.an(:[0-9]+)?/
+# Saint Barthélemy (informally also referred to as Saint Barth’s or Saint Barts)
++^(http|https)://.*.bl(:[0-9]+)?/
+# Saint Barthélemy (informally also referred to as Saint Barth’s or Saint Barts)
++^(http|https)://.*.gp(:[0-9]+)?/
+# Saint Barthélemy (informally also referred to as Saint Barth’s or Saint Barts)
++^(http|https)://.*.fr(:[0-9]+)?/
+# Saint Helena
++^(http|https)://.*.sh(:[0-9]+)?/
+# Saint Kitts and Nevis
++^(http|https)://.*.kn(:[0-9]+)?/
+# Saint Lucia
++^(http|https)://.*.lc(:[0-9]+)?/
+# Saint Martin (officially the Collectivity of Saint Martin)
++^(http|https)://.*.mf(:[0-9]+)?/
+# Saint Martin (officially the Collectivity of Saint Martin)
++^(http|https)://.*.gp(:[0-9]+)?/
+# Saint Martin (officially the Collectivity of Saint Martin)
++^(http|https)://.*.fr(:[0-9]+)?/
+# Saint-Pierre and Miquelon
++^(http|https)://.*.pm(:[0-9]+)?/
+# Saint Vincent and the Grenadines
++^(http|https)://.*.vc(:[0-9]+)?/
+# Samoa
++^(http|https)://.*.ws(:[0-9]+)?/
+# San Marino
++^(http|https)://.*.sm(:[0-9]+)?/
+# São Tomé and Príncipe
++^(http|https)://.*.st(:[0-9]+)?/
+# Saudi Arabia
++^(http|https)://.*.sa(:[0-9]+)?/
+# Senegal
++^(http|https)://.*.sn(:[0-9]+)?/
+# Serbia
++^(http|https)://.*.rs(:[0-9]+)?/
+# Seychelles
++^(http|https)://.*.sc(:[0-9]+)?/
+# Sierra Leone
++^(http|https)://.*.sl(:[0-9]+)?/
+# Singapore
++^(http|https)://.*.sg(:[0-9]+)?/
+# Sint Eustatius
++^(http|https)://.*.bq(:[0-9]+)?/
+# Sint Eustatius
++^(http|https)://.*.an(:[0-9]+)?/
+# Sint Eustatius
++^(http|https)://.*.nl(:[0-9]+)?/
+# Sint Maarten
++^(http|https)://.*.sx(:[0-9]+)?/
+# Sint Maarten
++^(http|https)://.*.an(:[0-9]+)?/
+# Slovakia
++^(http|https)://.*.sk(:[0-9]+)?/
+# Slovenia
++^(http|https)://.*.si(:[0-9]+)?/
+# Solomon Islands
++^(http|https)://.*.sb(:[0-9]+)?/
+# Somalia
++^(http|https)://.*.so(:[0-9]+)?/
+# Somaliland
++^(http|https)://.*.so(:[0-9]+)?/
+# South Africa
++^(http|https)://.*.za(:[0-9]+)?/
+# South Georgia and the South Sandwich Islands
++^(http|https)://.*.gs(:[0-9]+)?/
+# South Korea
++^(http|https)://.*.kr(:[0-9]+)?/
+# South Sudan
++^(http|https)://.*.ss(:[0-9]+)?/
+# Spain
++^(http|https)://.*.es(:[0-9]+)?/
+# Sri Lanka
++^(http|https)://.*.lk(:[0-9]+)?/
+# Sudan
++^(http|https)://.*.sd(:[0-9]+)?/
+# Suriname
++^(http|https)://.*.sr(:[0-9]+)?/
+# Svalbard and Jan Mayen Islands
++^(http|https)://.*.sj(:[0-9]+)?/
+# Swaziland
++^(http|https)://.*.sz(:[0-9]+)?/
+# Sweden
++^(http|https)://.*.se(:[0-9]+)?/
+# Switzerland
++^(http|https)://.*.ch(:[0-9]+)?/
+# Taiwan
++^(http|https)://.*.tw(:[0-9]+)?/
+# Tajikistan
++^(http|https)://.*.tj(:[0-9]+)?/
+# Tanzania
++^(http|https)://.*.tz(:[0-9]+)?/
+# Thailand
++^(http|https)://.*.th(:[0-9]+)?/
+# Togo
++^(http|https)://.*.tg(:[0-9]+)?/
+# Tokelau
++^(http|https)://.*.tk(:[0-9]+)?/
+# Tonga
++^(http|https)://.*.to(:[0-9]+)?/
+# Trinidad & Tobago
++^(http|https)://.*.tt(:[0-9]+)?/
+# Tunisia
++^(http|https)://.*.tn(:[0-9]+)?/
+# Turkey
++^(http|https)://.*.tr(:[0-9]+)?/
+# Turkmenistan
++^(http|https)://.*.tm(:[0-9]+)?/
+# Turks and Caicos Islands
++^(http|https)://.*.tc(:[0-9]+)?/
+# Tuvalu
++^(http|https)://.*.tv(:[0-9]+)?/
+# Uganda
++^(http|https)://.*.ug(:[0-9]+)?/
+# Ukraine
++^(http|https)://.*.ua(:[0-9]+)?/
+# United Arab Emirates (UAE)
++^(http|https)://.*.ae(:[0-9]+)?/
+# United Kingdom (UK)
++^(http|https)://.*.uk(:[0-9]+)?/
+# United States of America (USA)
++^(http|https)://.*.us(:[0-9]+)?/
+# United States Virgin Islands
++^(http|https)://.*.vi(:[0-9]+)?/
+# Uruguay
++^(http|https)://.*.uy(:[0-9]+)?/
+# Uzbekistan
++^(http|https)://.*.uz(:[0-9]+)?/
+# Vanuatu
++^(http|https)://.*.vu(:[0-9]+)?/
+# Vatican City
++^(http|https)://.*.va(:[0-9]+)?/
+# Venezuela
++^(http|https)://.*.ve(:[0-9]+)?/
+# Vietnam
++^(http|https)://.*.vn(:[0-9]+)?/
+# Wallis and Futuna
++^(http|https)://.*.wf(:[0-9]+)?/
+# Western Sahara
++^(http|https)://.*.eh(:[0-9]+)?/
+# Western Sahara
++^(http|https)://.*.ma(:[0-9]+)?/
+# Yemen
++^(http|https)://.*.ye(:[0-9]+)?/
+# Zambia
++^(http|https)://.*.zm(:[0-9]+)?/
+# Zimbabwe
++^(http|https)://.*.zw(:[0-9]+)?/
