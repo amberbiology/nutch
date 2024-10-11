@@ -129,9 +129,15 @@ function __backup_to_s3 {
 	BACKUP_DIR=backup-crawl
 	# create a temporary backup directory file
 	echo "Copy ${CRAWL_PATH} to ${S3_BACKUP_ROOT}/${TMP_DIR}"
-	aws s3 sync ${CRAWL_PATH} ${S3_BACKUP_ROOT}/${TMP_DIR} --exact-timestamps
-	# now copy it back to the main area (only once the original backup is finished
-	# in case it got interrupted)
+	if [ $mode = "distributed" ]; then
+	    echo "Copying via hadoop"
+	    hadoop distcp ${CRAWL_PATH} ${S3_BACKUP_ROOT}/${TMP_DIR}
+	else
+	    echo "Copying local"
+	    aws s3 sync ${CRAWL_PATH} ${S3_BACKUP_ROOT}/${TMP_DIR} --exact-timestamps
+	fi
+	# once it's on the bucket copy it back to the main area
+	# (only once the original backup is finished in case it got interrupted)
 	echo "Move ${S3_BACKUP_ROOT}/${TMP_DIR} to ${S3_BACKUP_ROOT}/${BACKUP_DIR}"
 	aws s3 mv ${S3_BACKUP_ROOT}/${TMP_DIR} ${S3_BACKUP_ROOT}/${BACKUP_DIR} --recursive
     else
