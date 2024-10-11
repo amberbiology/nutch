@@ -97,7 +97,7 @@ public class DiscardBCubeIndexingFilterTest {
 	public void DiscardBCubeIndexingFilter_will_parse_html_documents() throws Exception {
 		Configuration conf = NutchConfiguration.create();
 		conf.setBoolean("moreIndexingFilter.indexMimeTypeParts", true);
-		conf.set("indexingfilter.bcube.allowed.html.regex", "<pre[^>]*>\\n?(Attributes \\{.*\\})\\n?</pre>");
+		conf.set("indexingfilter.bcube.allowed.html.regex", "<pre[^>]*>\\n?((Attributes|Dataset) \\{.*\\}.*\\n?)</pre>");
 		conf.set("indexingfilter.bcube.allowed.mimetypes", "text/html");
 		DiscardBCubeIndexingFilter filter = new DiscardBCubeIndexingFilter();
 		filter.setConf(conf);
@@ -140,7 +140,67 @@ public class DiscardBCubeIndexingFilterTest {
 		
 		String typeValue = contentTypeField.getValues().get(0).toString();
 		assertTrue(typeValue.equals("text/html"));
+
+		// second simulated <pre> section
+		NutchDocument doc2 = new NutchDocument();
 		
+		doc2.add("type", "text/html");
+		doc2.add("id", "https://notrealurl.example.net/baz");
+		
+		Parse parse2 = mock(Parse.class);
+		Metadata metadata2 = new Metadata();
+
+		String content2 = String.join("\n",
+					     "<!DOCTYPE html>",
+					     "<html> <pre>",
+					     "Dataset {",
+					     "    Grid {",
+ 					     "     ARRAY:",
+ 					     "        Float64 longitude[yc = 1302][xc = 1069];",
+ 					     "     MAPS:",
+ 					     "        Float64 yc[yc = 1302];",
+ 					     "        Float64 xc[xc = 1069];",
+ 					     "    } longitude;",
+ 					     "    Grid {",
+ 					     "     ARRAY:",
+ 					     "        Float64 latitude[yc = 1302][xc = 1069];",
+ 					     "     MAPS:",
+ 					     "        Float64 yc[yc = 1302];",
+ 					     "        Float64 xc[xc = 1069];",
+ 					     "    } latitude;",
+ 					     "    Float64 projection;",
+ 					     "    Grid {",
+ 					     "     ARRAY:",
+ 					     "        Float64 ice_concentration[time = 1][yc = 1302][xc = 1069];",
+ 					     "     MAPS:",
+ 					     "        Float64 time[time = 1];",
+ 					     "        Float64 yc[yc = 1302];",
+ 					     "        Float64 xc[xc = 1069];",
+ 					     "    } ice_concentration;",
+ 					     "    Float64 time[time = 1];",
+ 					     "    Float64 xc[xc = 1069];",
+ 					     "    Float64 yc[yc = 1302];",
+ 					     "} arcticdata/met/seaiceforecast/forecast/topaz_barents_merged_iceconc_fc-96.nc;",
+ 					     "</pre>",
+					     "</html>");					     
+
+		metadata2.add("raw_content", content2);
+		ParseData parseData2 = new ParseData();
+		parseData2.setParseMeta(metadata2);
+
+		// Mock parser response
+		when(parse2.getData()).thenReturn(parseData2);
+
+		doc2 = filter.filter(doc2, parse2, null, null, null);
+
+		assertNotNull(doc2);
+
+		assertTrue(doc2.getFieldNames().contains("type"));
+		NutchField contentTypeField2 = doc2.getField("type");
+		
+		String typeValue2 = contentTypeField2.getValues().get(0).toString();
+		assertTrue(typeValue2.equals("text/html"));
+ 		
 	}
 
     	@Test
