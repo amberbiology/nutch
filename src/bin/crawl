@@ -239,8 +239,6 @@ do
   echo "Dedup on crawldb"
   __bin_nutch dedup "$CRAWL_PATH"/crawldb
 
-  __backup_to_s3
-  
   if $INDEXFLAG; then
       echo "Indexing $SEGMENT to index"
       __bin_nutch index $JAVA_PROPERTIES "$CRAWL_PATH"/crawldb -linkdb "$CRAWL_PATH"/linkdb "$CRAWL_PATH"/segments/$SEGMENT
@@ -256,8 +254,8 @@ do
     hadoop fs -rmr "$CRAWL_PATH"/segments/$SEGMENT
   fi
 
-
-
+  __backup_to_s3
+  
   #######################################################
   # The following commands fall into WebGraph territory
   # and should be uncommented based on your requirements
