@@ -28,6 +28,7 @@
 
 INDEXFLAG=false
 JAVA_PROPERTIES=""
+S3_BACKUPFLAG=false
 while [[ $# > 0 ]]
 do
     case $1 in
@@ -39,6 +40,11 @@ do
             JAVA_PROPERTIES="-D${2} ${JAVA_PROPERTIES}"
             shift 2
             ;;
+        -b|--backup)
+	    S3_BACKUPFLAG=true
+            S3_BACKUP_ROOT="${2}"
+            shift 2
+            ;;
         *)
             break
             ;;
@@ -46,9 +52,10 @@ do
 done
 
 if [[ $# != 3 ]]; then
-    echo "Usage: crawl [-i|--index] [-D \"key=value\"] <Seed Dir> <Crawl Dir> <Num Rounds>"
+    echo "Usage: crawl [-i|--index] [-D \"key=value\"] [-b|--backup <S3 Bucket>] <Seed Dir> <Crawl Dir> <Num Rounds>"
     echo -e "\t-i|--index\tIndexes crawl results into a configured indexer"
     echo -e "\t-D\t\tA Java property to pass to Nutch calls"
+    echo -e "\t-b\t\tAn S3 bucket save each crawl directory"
     echo -e "\tSeed Dir\tDirectory in which to look for a seeds file"
     echo -e "\tCrawl Dir\tDirectory where the crawl/link/segments dirs are saved"
     echo -e "\tNum Rounds\tThe number of rounds to run this crawl for"
@@ -112,7 +119,25 @@ function __bin_nutch {
     fi
 }
 
+function __backup_to_s3 {
 
+    echo "S3_BACKUPFLAG: $S3_BACKUPFLAG"
+    echo "S3_BACKUP_ROOT: $S3_BACKUP_ROOT"
+    if $S3_BACKUPFLAG; then
+	echo "Backup ${CRAWL_PATH} to ${S3_BACKUP_ROOT}"
+	TMP_DIR=tmp-backup-crawl
+	BACKUP_DIR=backup-crawl
+	# create a temporary backup directory file
+	echo "Copy ${CRAWL_PATH} to ${S3_BACKUP_ROOT}/${TMP_DIR}"
+	aws s3 sync ${CRAWL_PATH} ${S3_BACKUP_ROOT}/${TMP_DIR} --exact-timestamps
+	# now copy it back to the main area (only once the original backup is finished
+	# in case it got interrupted)
+	echo "Move ${S3_BACKUP_ROOT}/${TMP_DIR} to ${S3_BACKUP_ROOT}/${BACKUP_DIR}"
+	aws s3 mv ${S3_BACKUP_ROOT}/${TMP_DIR} ${S3_BACKUP_ROOT}/${BACKUP_DIR} --recursive
+    else
+	echo "Skipping S3 backup ..."
+    fi
+}
 
 # initial injection
 if [ $SEEDDIR = "-noinject" ]; then
@@ -128,7 +153,9 @@ for ((a=1; a <= LIMIT ; a++))
 do
   if [ -e ".STOP" ]
   then
-   echo "STOP file found - escaping loop"
+      echo "STOP file found - escaping loop"
+      # do last backup before stopping
+      __backup_to_s3
    break
   fi
 
@@ -161,6 +188,7 @@ do
   elif [ $RETCODE -eq 1 ]; then
     echo "Generate returned 1 (no new segments created)"
     echo "Escaping loop: no more URLs to fetch now"
+    __backup_to_s3
     break
   else
     echo "Error running:"
@@ -204,6 +232,8 @@ do
   echo "Dedup on crawldb"
   __bin_nutch dedup "$CRAWL_PATH"/crawldb
 
+  __backup_to_s3
+  
   if $INDEXFLAG; then
       echo "Indexing $SEGMENT to index"
       __bin_nutch index $JAVA_PROPERTIES "$CRAWL_PATH"/crawldb -linkdb "$CRAWL_PATH"/linkdb "$CRAWL_PATH"/segments/$SEGMENT
