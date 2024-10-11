@@ -214,7 +214,7 @@
 
  <property>
     <name>indexingfilter.bcube.allowed.html.regex</name>
-    <value><![CDATA[<pre[^>]*>\n?(Attributes \{.*\})\n?</pre>]]></value>
+    <value><![CDATA[<pre[^>]*>\\n?((Attributes|Dataset) \\{.*\\}.*\\n?)</pre>]]></value>
     <description>
       This is a regular expression that, if matched on text/html documents,
       allows that HTML to be indexed, otherwise it is discarded. Requires that text/html
