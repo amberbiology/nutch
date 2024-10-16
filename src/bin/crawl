@@ -132,7 +132,7 @@ function __backup_to_s3 {
 	if [ $mode = "distributed" ]; then
 	    echo "Copying via hadoop"
 	    # note that we use s3a:// protocol
-	    hadoop distcp ${CRAWL_PATH} ${S3_BACKUP_ROOT/#s3:/s3a:}/${TMP_DIR}
+	    hadoop distcp -overwrite ${CRAWL_PATH} ${S3_BACKUP_ROOT/#s3:/s3a:}/${TMP_DIR}
 	else
 	    echo "Copying local"
 	    aws s3 sync ${CRAWL_PATH} ${S3_BACKUP_ROOT}/${TMP_DIR} --exact-timestamps
