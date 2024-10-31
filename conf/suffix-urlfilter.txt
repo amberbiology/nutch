@@ -147,6 +147,9 @@
 .omn
 .obo
 
+# skip GPX
+.gpx
+
 # ignore
 .files_not_found
 .log
