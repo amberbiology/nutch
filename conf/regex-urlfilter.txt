@@ -47,7 +47,10 @@
 # exclude house.gov
 -^(http|https)://([a-zA-Z0-9-_]*\.)*clerk.house.gov(:[0-9]+)?/
 
-# all all the rest of the .gov
+# exclude catalog.data.gov
+-^(http|https)://([a-zA-Z0-9-_]*\.)*catalog.data.gov(:[0-9]+)?/
+
+# include all all the rest of the .gov
 +^(http|https)://([a-zA-Z0-9-_]*\.)*gov(:[0-9]+)?/
 
 # all all the rest of the .org
