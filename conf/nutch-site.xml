@@ -203,7 +203,7 @@
 
  <property>
     <name>indexingfilter.bcube.forbidden.url.patterns</name>
-    <value>geoserver openaire eprint codelist document congress mapserver preprints coverpages wp-content wp-embedded-content /mods /marc /marcxml /errdap/wms/ /dc /oembed/[0-9\\.]+/embed /ows\\?service=WFS /ows\\?service=WCS /csw\\? allDatasets script tutorial userguide workshop announcement sitemap wiki GetCapabilities error\\.xml$ \\.rss$ \\.gs$</value>
+    <value>geoserver openaire eprint codelist document congress mapserver preprints coverpages wp-content wp-embedded-content /mods /marc /marcxml /errdap/wms/ /dc /oembed/[0-9\\.]+/embed /ows\\?service=WFS /ows\\?service=WCS /csw\\? allDatasets script tutorial userguide workshop announcement sitemap wiki GetCap GetCapabilities error\\.xml$ \\.rss$ \\.gs$</value>
     <description>
          Determines URL patterns to be excluded from indexing. This consists of a series of
          single-spaced separated regular expressions (that cannot themselves contain spaces), each
